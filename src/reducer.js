@@ -19,10 +19,14 @@ export const paramsSlice = createSlice({
     projDevSpend: 0,
     anlgDevSpend: 0,
     coffTeck: 0,
+    startData: "2013-01-21T00:00:00.000Z",
   },
   reducers: {
     setDirectorDay: (state, action) => {
       state.directorDay = action.payload;
+    },
+    setStartData: (state, action) => {
+      state.startData = action.payload;
     },
     setProgerDay: (state, action) => {
       state.progerDay = action.payload;

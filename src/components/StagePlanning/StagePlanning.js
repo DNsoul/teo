@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "../Table";
 import { actions } from "../../reducer";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 const head = (
   <thead>
@@ -148,13 +148,56 @@ const setting = [
   { width: 250, disabled: true, rowSpan: 2 },
   { width: 150, disabled: true },
   { width: 100, disabled: false, type: "number" },
-  { width: 130, disabled: false, type: "date" },
+  { width: 130, disabled: true, type: "date" },
   { width: 130, disabled: true, type: "date" },
 ];
 
 const StagePlanning = () => {
   const [data, setData] = useState(initBody);
   const dispatch = useDispatch();
+  const start = useSelector(state => state.startData)
+
+  const setStart = (newState) => {
+    dispatch(actions.setStartData(newState))
+  }
+
+  const onChangeDate = (inputData) => {
+    const tempData = inputData ?? data
+    let newData = [];
+    const date = new Date(start)
+    date.setDate(date.getDate() - 1);
+    let prevDate = date.toISOString()
+    tempData.forEach((prevData, index) => {
+      if (![0,1].includes(index)) {
+        const minusIndex = index % 2 ? 2 : 1
+        const prevEndOne = newData?.[index - minusIndex]?.[4] ?? prevDate
+        const prevEndTwo = newData?.[index - minusIndex - 1]?.[4] ?? prevDate
+        if (prevEndOne >= prevEndTwo) {
+          prevDate = prevEndOne
+        } else {
+          prevDate = prevEndTwo
+        }
+      }
+
+      newData.push(prevData)
+      if (newData[index][2] != 0) {
+        const date = new Date(prevDate)
+        date.setDate(date.getDate() + 1);
+        newData[index][3] = date.toISOString()
+        date.setDate(date.getDate() + Number(newData[index][2]-1));
+        newData[index][4] = date.toISOString()
+      } else {
+        newData[index][3] = ''
+        newData[index][4] = ''
+      }
+    })
+
+    setData(newData)
+  }
+
+  useEffect(() => {
+    onChangeDate()
+  }, [start])
 
   const onChange = (prevData, idxr, idxc, value) => {
     const row = prevData[idxr];
@@ -167,15 +210,15 @@ const StagePlanning = () => {
     }
 
     const date = new Date(row[3]);
-    date.setDate(date.getDate() + Number(row[2]));
-    row[4] = date.toLocaleString("ru").slice(0, 10);
+    date.setDate(date.getDate() + Number(row[2]) - 1);
+    row[4] = date.toISOString()
 
     if (Number(row[2]) === 0) {
       row[3] = row[4] = "";
     }
 
     prevData[idxr] = row;
-    setData(prevData.slice());
+    onChangeDate(prevData.slice())
   };
 
   const director = data.reduce((p, n, i) => p + Number(!(i % 2) ? n[2] : 0), 0);
@@ -196,6 +239,18 @@ const StagePlanning = () => {
         <br />
         <span>Программист: </span>
         <span>{proger} дней</span>
+        <br />
+        <div style={{display: 'flex'}}>
+          <span>Дата начала: </span>
+          <input
+            key={`key-qwe`}
+            style={{width: 130, marginLeft: 10}}
+            className="input is-small"
+            type="date"
+            onChange={(event) => setStart(event.target.value)}
+            defaultValue={start.toLocaleString("ru").slice(0, 10)}
+          />
+        </div>
       </div>
       <Table
         head={head}

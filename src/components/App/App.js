@@ -59,27 +59,51 @@ const App = () => {
 
   const pages = [
     {
-      title: "Расчет показателя качества балльно-индексным методом",
+      title: "Оценка конкурентно способности проекта",
+      subTitle: "Расчет показателя качества балльно-индексным методом",
       component: <StageCompetitiveness />,
     },
     {
-      title: "Календарный график выполнения работ",
+      title: "Планирование комплекса работ",
+      subTitle: "Календарный график выполнения работ",
       component: <StagePlanning />,
     },
     {
-      title: "Основная заработная плата разработчиков",
+      title: "Затраты на разработку",
+      subTitle: "Основная заработная плата разработчиков",
       component: <StageDevelop />,
     },
-    { title: "Затраты на материалы", component: <StageMatetial /> },
     {
-      title: "Коэффициенты для затрат на разработку",
+      title: "Затраты на разработку",
+      subTitle: "Затраты на материалы",
+      component: <StageMatetial />,
+    },
+    {
+      title: "Затраты на разработку",
+      subTitle: "Данные для расчета",
       component: <StageDeveloping />,
     },
-    { title: "Затраты на разработку", component: <StageExpenses /> },
-    { title: "Коэффицент эксплуатации", component: <StageExplotationCoff /> },
-    { title: "Данные о зарабатной плате", component: <StageExploitation /> },
-    { title: "Годовые эксплуатационные затраты", component: <StageTotal /> },
-    { title: "Итог", component: <StageEffect /> },
+    {
+      title: "Затраты на разработку",
+      subTitle: "Расчеты",
+      component: <StageExpenses />,
+    },
+    {
+      title: "Затраты на эксплуатацию",
+      subTitle: "Данные для расчета",
+      component: <StageExplotationCoff />,
+    },
+    {
+      title: "Затраты на эксплуатацию",
+      subTitle: "Данные о заработной плате",
+      component: <StageExploitation />,
+    },
+    {
+      title: "Затраты на эксплуатацию",
+      subTitle: "Годовые затраты",
+      component: <StageTotal />,
+    },
+    { title: "Экономический эффект", subTitle: "Итоги", component: <StageEffect /> },
   ];
 
   const currPage = pages[page];
@@ -129,7 +153,17 @@ const App = () => {
           >
             Назад
           </button>
-          <h1 className="title is-5 m-0">{currPage.title}</h1>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <span className="title is-5 m-0">{currPage.title}</span>
+            <span>{currPage.subTitle}</span>
+          </div>
           <button
             disabled={page === 9}
             onClick={next}

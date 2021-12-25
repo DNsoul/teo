@@ -18,7 +18,12 @@ const Table = (props) => {
         style={setting?.width ? { width: setting.width } : {}}
         className="input is-small has-text-weight-normal h-auto"
       >
-        {value}
+        {setting?.type === "date"
+          ? (() => {
+              const date = new Date(value);
+              return date.toLocaleString("ru").slice(0, 10);
+            })()
+          : value}
       </span>
     ) : (
       <input
@@ -33,29 +38,27 @@ const Table = (props) => {
               (e.keyCode > 95 && e.keyCode < 106) ||
               (e.keyCode > 47 && e.keyCode < 58) ||
               e.keyCode == 8
-            ) && setting?.type
+            ) &&
+            setting?.type
           ) {
             e.preventDefault();
             return false;
           }
         }}
         type={setting?.type ?? "text"}
-        onChange={(event) =>{ 
-          if (event.target.value === '') {
-            updateData(body, idxr, idxc, body[idxr][idxc])
+        onChange={(event) => {
+          if (event.target.value === "") {
+            updateData(body, idxr, idxc, body[idxr][idxc]);
           } else {
-            updateData(body, idxr, idxc, event.target.value)
+            updateData(body, idxr, idxc, event.target.value);
           }
-
         }}
         value={value}
       />
     );
 
   return (
-    <table
-      className="table is-striped is-hoverable is-fullwidth"
-    >
+    <table className="table is-striped is-hoverable is-fullwidth">
       {head}
       <tbody style={{ maxHeight: `${height}vh`, overflow: "scroll" }}>
         {body.map((row, idxr) => (
