@@ -9,7 +9,7 @@ export const paramsSlice = createSlice({
     znm: 0,
     devSpend: [0, 0, 0, 0, 0, 0, 0],
     impSpend: [0, 0, 0, 0, 0, 0],
-    explCoff: [22500, 1, 22500, 1, 0.4, 0.6, 0.1, 0.3, 0.01, 0.05, 2.6, 8, 0.2],
+    explCoff: [22500, 1, 22500, 1, 0.4, 0.6, 0.2, 0.3, 0.01, 0.05, 2.6, 8, 0.2],
     projPrice: 0,
     anlgPrice: 0,
     projDay: 0,

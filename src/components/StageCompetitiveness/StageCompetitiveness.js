@@ -88,6 +88,7 @@ const StageCompetitiveness = () => {
 
   const jp = data.reduce((p, n) => p + Number(n[3]), 0);
   const ja = data.reduce((p, n) => p + Number(n[5]), 0);
+  const coff = data.reduce((p, n) => p + Number(n[1]), 0);
 
   useEffect(() => {
     dispatch(actions.setCoffTeck(jp / ja));
@@ -96,6 +97,17 @@ const StageCompetitiveness = () => {
   return (
     <div>
       <div className="box">
+        <span className="has-text-weight-bold">
+          Суммарный коэффициент весомости
+        </span>
+        <span> {coff.toFixed(2)}</span>
+        <br />
+        {(coff > 1 || coff < 1) && (
+          <>
+            <span className="has-text-danger">Коэфицент должен быть равен единице</span>
+            <br />
+          </>
+        )}
         <span className="has-text-weight-bold">
           Обобщенный показатель качества
         </span>

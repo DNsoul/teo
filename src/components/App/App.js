@@ -11,13 +11,17 @@ import StageDeveloping from "../StageDeveloping";
 import StageExplotationCoff from "../StageExplotationCoff";
 import pdf from "./Spravka.pdf";
 
-const MyModal = ({open, setOpen}) => (
-  <div class={`modal ${open && 'is-active'}`}>
+const MyModal = ({ open, setOpen }) => (
+  <div class={`modal ${open && "is-active"}`}>
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head">
         <p class="modal-card-title">О программе</p>
-        <button onClick={() => setOpen(false)} class="delete" aria-label="close"></button>
+        <button
+          onClick={() => setOpen(false)}
+          class="delete"
+          aria-label="close"
+        ></button>
       </header>
       <section class="modal-card-body">
         <p>
@@ -32,7 +36,7 @@ const MyModal = ({open, setOpen}) => (
           инвестиционного проекта и разработке сроков возврата вложенных в
           бизнес средств.
         </p>
-        <br/>
+        <br />
         <p>Лупашко Андрей</p>
         <p>449-2</p>
         <p>© "Lupashko", 2021</p>
@@ -43,7 +47,7 @@ const MyModal = ({open, setOpen}) => (
 
 const App = () => {
   const [page, setPage] = useState(0);
-  const [modal, setModal] = useState(false)
+  const [modal, setModal] = useState(false);
 
   const next = () => {
     setPage((prev) => prev + 1);
@@ -68,7 +72,7 @@ const App = () => {
     },
     { title: "Затраты на материалы", component: <StageMatetial /> },
     {
-      title: "Коэфиценты для затрат на разработку",
+      title: "Коэффициенты для затрат на разработку",
       component: <StageDeveloping />,
     },
     { title: "Затраты на разработку", component: <StageExpenses /> },
@@ -83,6 +87,40 @@ const App = () => {
   return (
     <>
       <div className="app-container">
+        <header
+          style={{
+            height: 50,
+            display: "flex",
+            justifyContent: "space-between",
+            background: "white",
+            borderRadius: 5,
+            overflow: "hidden",
+            alignItems: "center",
+            marginBottom: 5,
+            paddingLeft: 10,
+            paddingRight: 5,
+          }}
+        >
+          <span className="title is-5 m-0">
+            Технико-экономическое обоснование проекта
+          </span>
+          <div>
+            <button onClick={() => setModal(true)} className="button">
+              О программе
+            </button>
+            <a
+              className="button mh"
+              rel="noreferrer"
+              target="_blank"
+              href="https://www.eulatemplate.com/live.php?token=CclCTuA5qci0mthoVg2WP3uKmqbeqXLo"
+            >
+              EULA
+            </a>
+            <a className="button" rel="noreferrer" target="_blank" href={pdf}>
+              Справка
+            </a>
+          </div>
+        </header>
         <header className="app-header">
           <button
             disabled={page === 0}
@@ -101,20 +139,6 @@ const App = () => {
           </button>
         </header>
         {currPage.component}
-      </div>
-      <div className="mybuttons">
-        <button onClick={() => setModal(true)} className="button">О программе</button>
-        <a
-          className="button"
-          rel="noreferrer"
-          target="_blank"
-          href="https://www.eulatemplate.com/live.php?token=CclCTuA5qci0mthoVg2WP3uKmqbeqXLo"
-        >
-          EULA
-        </a>
-        <a className="button" rel="noreferrer" target="_blank" href={pdf}>
-          Справка
-        </a>
       </div>
       <MyModal open={modal} setOpen={setModal} />
     </>

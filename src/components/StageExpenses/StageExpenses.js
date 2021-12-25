@@ -23,7 +23,7 @@ const settingAnalog = [
 ];
 
 const StageExpenses = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const devSpend = useSelector((state) => state.devSpend);
   const impSpend = useSelector((state) => state.impSpend);
@@ -71,9 +71,9 @@ const StageExpenses = () => {
   const va = data.reduce((p, c) => p + Number(c[1]), 0);
 
   useEffect(() => {
-    dispatch(actions.setProjDevSpend(kv))
-    dispatch(actions.setAnlgDevSpend(va))
-  }, [data])
+    dispatch(actions.setProjDevSpend(kv));
+    dispatch(actions.setAnlgDevSpend(va));
+  }, [data]);
 
   return (
     <div>
@@ -96,13 +96,17 @@ const StageExpenses = () => {
         <br />
       </div>
       <div style={{ display: "flex" }}>
-        <Table head={head} body={initBodyDevelop} setting={setting} />
-        <Table
-          head={head}
-          body={data}
-          updateData={onChange}
-          setting={settingAnalog}
-        />
+        <div className="mh">
+          <Table head={head} body={initBodyDevelop} setting={setting} />
+        </div>
+        <div className="mh">
+          <Table
+            head={head}
+            body={data}
+            updateData={onChange}
+            setting={settingAnalog}
+          />
+        </div>
       </div>
     </div>
   );

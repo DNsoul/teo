@@ -54,7 +54,6 @@ const Table = (props) => {
 
   return (
     <table
-      style={{ margin: 5 }}
       className="table is-striped is-hoverable is-fullwidth"
     >
       {head}

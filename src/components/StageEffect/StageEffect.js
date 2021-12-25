@@ -40,12 +40,12 @@ const settingEffert = [
   { width: 130, disabled: true, type: "number" },
 ];
 
-
 const StageEffect = () => {
   const projSeb = useSelector((state) => state.projSeb);
   const anlgSeb = useSelector((state) => state.anlgSeb);
   const projDevSpend = useSelector((state) => state.projDevSpend);
   const anlgDevSpend = useSelector((state) => state.anlgDevSpend);
+  const coffTeck = useSelector((state) => state.coffTeck);
 
   const [econEfct, setEconEfct] = useState(0.33);
 
@@ -94,15 +94,19 @@ const StageEffect = () => {
           <span>Коэффициент эффективности капитальных вложений:</span>
           <input
             className="input is-small"
-            style={{width: 100}}
+            style={{ width: 100 }}
             type="number"
             value={econEfct}
             onChange={(e) => setEconEfct(e.target.value)}
           />
         </div>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <span>Коэффициент технического совершенства:</span>
+          <span>{coffTeck.toFixed(2)}</span>
+        </div>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
           <span>
-            Экономический эффект от использования разрабатываемой системы, руб
+            Экономический эффект от использования разрабатываемой системы, руб
           </span>
           <span>{econEffProj.toFixed(2)}</span>
         </div>
@@ -114,8 +118,26 @@ const StageEffect = () => {
         </div>
       </div>
       <div style={{ display: "flex" }}>
-        <Table head={head} body={initBody} setting={setting} />
-        <Table head={headResul} body={initBodyResult} setting={settingEffert} />
+        <div className="mh">
+          <div className="box m-0 p-0 has-text-centered">
+            <span className="is-size-6">
+              Данные по заработной плате специалистов (для проекта)
+            </span>
+          </div>
+          <Table head={head} body={initBody} setting={setting} />
+        </div>
+        <div className="mh">
+          <div className="box m-0 p-0 has-text-centered">
+            <span className="is-size-6">
+              Данные по заработной плате специалистов (для проекта)
+            </span>
+          </div>
+          <Table
+            head={headResul}
+            body={initBodyResult}
+            setting={settingEffert}
+          />
+        </div>
       </div>
     </div>
   );

@@ -18,19 +18,19 @@ const setting = [
 ];
 
 const initBodyDeveloping = [
-  ["Коэффицент отчисления на социальные нужды", "0.3"],
-  ["Коэффицент отпускных", "0.1"],
-  ["Районный коэффицент", "0.9"],
-  ["Коэффицент накладных расходов", "0.6"],
+  ["Коэффициент отчисления на социальные нужды", "0.3"],
+  ["Коэффициент отпускных", "0.1"],
+  ["Районный коэффициент", "0.3"],
+  ["Коэффициент накладных расходов", "0.6"],
   ["Машинное время ПК (час/день)", "4"],
   ["Стоимость 1 часа работы ПК в руб.", "20"],
-  ["Коэффицент мультипрограммности", "1"],
+  ["Коэффициент мультипрограммности", "1"],
 ];
 
 const initBodyImplementation = [
   ["Количество рабочих часов в день", "8"],
   ["Количество рабочих дней в году", "247"],
-  ["Друдоемкость обработки информации в час", "6"],
+  ["Трудоемкость обработки информации в час", "6"],
   ["Количество дней на внедрение", "247"],
   ["Стоимость ПК в рублях", "22500"],
   ["Количество компьютеров", "1"],
@@ -52,28 +52,32 @@ const StageDeveloping = () => {
   };
 
   useEffect(() => {
-    dispatch(actions.setDevSpend(dataDev.map(dt => Number(dt[1]))))
-    dispatch(actions.setImpSpend(dataImp.map(dt => Number(dt[1]))))
-  }, [dataDev, dataImp])
+    dispatch(actions.setDevSpend(dataDev.map((dt) => Number(dt[1]))));
+    dispatch(actions.setImpSpend(dataImp.map((dt) => Number(dt[1]))));
+  }, [dataDev, dataImp]);
 
   return (
     <div style={{ display: "flex" }}>
-      <Table
-        head={head}
-        body={dataDev}
-        updateData={(prevData, idxr, idxc, value) =>
-          onChange(setDataDev, prevData, idxr, idxc, value)
-        }
-        setting={setting}
-      />
-      <Table
-        head={head}
-        body={dataImp}
-        updateData={(prevData, idxr, idxc, value) =>
-          onChange(setDataImp, prevData, idxr, idxc, value)
-        }
-        setting={setting}
-      />
+      <div className="mh">
+        <Table
+          head={head}
+          body={dataDev}
+          updateData={(prevData, idxr, idxc, value) =>
+            onChange(setDataDev, prevData, idxr, idxc, value)
+          }
+          setting={setting}
+        />
+      </div>
+      <div className="mh">
+        <Table
+          head={head}
+          body={dataImp}
+          updateData={(prevData, idxr, idxc, value) =>
+            onChange(setDataImp, prevData, idxr, idxc, value)
+          }
+          setting={setting}
+        />
+      </div>
     </div>
   );
 };

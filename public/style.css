@@ -72,6 +72,16 @@ tbody {
   font-size: 0.75rem;
 }
 
+.mh {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.table {
+  margin: 0;
+  padding: 0;
+}
+
 input[type='number'] {
   -moz-appearance:textfield;
 }
